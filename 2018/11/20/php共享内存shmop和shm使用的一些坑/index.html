@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="qzj">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="victor quan">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="php共享内存shmop和shm使用的一些坑"/>
+    
+
+    <!--Open Graph Description-->
+    
+        <meta property="og:description" content="qzj" />
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="恠迗涯尋覓伱"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
+
+    <!--Page Cover-->
+    
+
+        <meta name="twitter:card" content="summary" />
+    
+
+    <!-- Title -->
+    
+    <title>php共享内存shmop和shm使用的一些坑 - 恠迗涯尋覓伱</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
+
+
+    <!-- 排除本地测试地址 S -->
+    <script type="text/javascript">
+        var isIgnoreHost = false;
+        var ignoreHostList = ('localhost,127.0.0.1').split(',');
+        if(window && window.location && window.location.host){
+            for(var i = 0; i < ignoreHostList.length; i++){
+                if(window.location.host.indexOf(ignoreHostList[i]) >= 0){
+                    isIgnoreHost = true;
+                    break;
+                }
+            }
+        }
+        var isTriggerAnalytics = !((JSON.parse('true')) && isIgnoreHost);
+    </script>
+    <!-- 排除本地测试地址 E -->
+
+    <!-- Google Analytics -->
+    
+
+
+
+    <!-- baidu Analytics -->
+    
+<script>
+    if(isTriggerAnalytics){
+        var _hmt = _hmt || [];
+        (function(){
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?8ca059faeae2d9a8d6316e3e4547dbab";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    }
+</script>
+
+
+
+    <!-- favicon -->
+    
+    <link rel="icon" href="/favicon.ico">
+    
+	
+</head>
+
+
+<body>
+
+    <!-- Menu -->
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">qzj</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+                    <li>
+                        <a href="/">
+                            
+                                Home
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/archives">
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/about">
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://github.com/victorquan">
+                            
+                                <i class="fa fa-github fa-stack-2x"></i>
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
+<header class="intro-header" style="background-image: url('/img/home-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>php共享内存shmop和shm使用的一些坑</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        2018-11-20
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+                <div class="col-lg-4 col-lg-offset-2 col-md-5 col-md-offset-1 post-tags">
+                    
+                        
+
+
+<a href="/tags/共享内存/">#共享内存</a> <a href="/tags/shmop/">#shmop</a> <a href="/tags/shm/">#shm</a>
+
+
+                    
+                </div>
+                <div class="col-lg-4 col-md-5 post-categories">
+                    
+                </div>
+            
+
+            <!-- Gallery -->
+            
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <p>最近在接入service mesh时，由于涉及底层接口高访问量的场景，考虑到性能问题需将mesh的地址缓存起来，首先想到了使用共享内存。<br>我们知道关于共享内存的操作，php有两套内置扩展函数shmop和sysvshm，一开始我采用了shmop扩展，业务在线上跑了半个多月均无任何异常出现，直到20天之后开始出现一些零星的异常，捕捉到的错误信息如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">PHP Warning &apos;yii\base\ErrorException&apos; with message &apos;shmop_delete() expects parameter 1 to be long, string given&apos; in test.php</div></pre></td></tr></table></figure></p>
+<p>其中写共享内存的php代码实现如下：<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">write</span><span class="params">($data)</span></span>&#123;</div><div class="line">    $data = pack(<span class="string">'a*'</span>, $data);</div><div class="line">    shmop_delete(<span class="keyword">$this</span>-&gt;shmId);</div><div class="line">    shmop_close(<span class="keyword">$this</span>-&gt;shmId);</div><div class="line">    <span class="keyword">$this</span>-&gt;shmId = shmop_open(<span class="keyword">$this</span>-&gt;key, <span class="string">'c'</span>, <span class="keyword">$this</span>-&gt;perms, strlen($data));</div><div class="line">    <span class="keyword">return</span> shmop_write(<span class="keyword">$this</span>-&gt;shmId, $data, <span class="number">0</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>由于shmop扩展函数在插入、更新、读取等操作均需要自行规划和管理共享内存的存储结构，比如使用shmop开辟一块共享内存并写入内容：”abcdefghijklmn”，第二次写入：”123456”，则此时共享内存的内容为”123456ghijklmn”，第二次的写入并不会清空共享内存已有的内容，所以当初图方便在每次写入时先删掉原来的共享内存块，重新创建一块内存地址并写入新内容，这就为高并发场景下出现以上错误埋下了伏笔。<br>原因找到了，于是我想到了改成使用sysvshm那套扩展，具体实现如下：<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">write</span><span class="params">($varKey, $data)</span></span>&#123;</div><div class="line">    $data = pack(<span class="string">'a*'</span>, $data);</div><div class="line">    <span class="keyword">return</span> shm_put_var(<span class="keyword">$this</span>-&gt;shmId, $varKey, $data);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>第二天凌晨，收到了一大波告警，捕捉到的异常信息如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">shm_put_var(): not enough shared memory left</div></pre></td></tr></table></figure></p>
+<p>并且php-fpm一直core，于是立马关掉使用共享内存的开关，经过两天的排查，终于在测试环境复现了问题。<br>复现方式，通过一个crontab开多个进程同时操作共享内存，一分钟之后，开始出现了同样的错误。于是停止脚本，发现无法通过shm_get_var()来读取共享内存的内容，于是我使用shmop_read读取到的内容如下图所示：<br><img src="/img/shm-error.png" alt="shm_put_var错误"><br>写的内容只有：{“zmq”:{“host”:”19.168.1.100”,”port”:”8899”,”createTime”:1542110838}}，但是共享内存里面却是重复的内容，经过分析sysV的接口对于shareKey没有做去重处理，每次都写入了新的key，导致了共享内存的写入指针尽管是相同的shareKey但不断后移，最终导致共享内存被写爆。<br>于是在操作共享内存的地方都加上信号锁，经过验证再也不会出现以上问题。代码如下：<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">write</span><span class="params">($varKey, $data)</span></span>&#123;</div><div class="line">    $data = pack(<span class="string">'a*'</span>, $data);</div><div class="line">    $signal = sem_get(<span class="keyword">$this</span>-&gt;key);</div><div class="line">    sem_acquire($signal);</div><div class="line">    $result = shm_put_var(<span class="keyword">$this</span>-&gt;shmId, $varKey, $data);</div><div class="line">    sem_release($signal);</div><div class="line">    <span class="keyword">return</span> $result;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>补充：<br>后来想起了补丁shmop版，其实可以自行进行存储空间管理，再加上信号锁，应该是可以完美解决问题的（以下代码未经过测试）：<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">write</span><span class="params">($data)</span></span>&#123;</div><div class="line">    $dataLength = strlen($data);</div><div class="line">    $msg = pack(<span class="string">'n'</span>, $dataLength);</div><div class="line">    $msg .= pack(<span class="string">'a'</span>, $data);</div><div class="line">    $signal = sem_get(<span class="keyword">$this</span>-&gt;key);</div><div class="line">    sem_acquire($signal);</div><div class="line">    $result = shmop_write(<span class="keyword">$this</span>-&gt;shmId, $msg, <span class="number">0</span>);</div><div class="line">    sem_release($signal);</div><div class="line">    <span class="keyword">return</span> $result;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">read</span><span class="params">()</span></span>&#123;</div><div class="line">    <span class="keyword">try</span>&#123;</div><div class="line">        $size = shmop_size(<span class="keyword">$this</span>-&gt;shmId);</div><div class="line">        $signal = sem_get(<span class="keyword">$this</span>-&gt;key);</div><div class="line">        sem_acquire($signal);</div><div class="line">        $shmContent = shmop_read(<span class="keyword">$this</span>-&gt;shmId, <span class="number">0</span>, $size);</div><div class="line">        sem_release($signal);</div><div class="line">        $dataInfo = unpack(<span class="string">'n1dataLength'</span>, $shmContent);</div><div class="line">        $data = unpack(<span class="string">"n1dataLength/a&#123;$dataInfo['dataLength']&#125;data"</span>, $shmContent);</div><div class="line">        <span class="keyword">return</span> $data[<span class="string">'data'</span>];</div><div class="line">    &#125;<span class="keyword">catch</span>(\<span class="keyword">Exception</span> $e)&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>最后还是推荐使用sysvshm那套API，比shmop要好用一些。</p>
+<p>感谢：<a href="https://www.jianshu.com/p/a182bc8b3f23" target="_blank" rel="external">https://www.jianshu.com/p/a182bc8b3f23</a></p>
+
+
+                
+            </div>
+
+            <!-- Comments -->
+            
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+<!-- JiaThis Button BEGIN -->
+<!--<script type="text/javascript" src="http://v3.jiathis.com/code/jiathis_r.js?btn=r2.gif" charset="utf-8"></script>-->
+<!-- JiaThis Button END -->
+
+<!-- 百度分享 S -->
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":["fbook","twi","evernotecn","tsina","linkedin","weixin","youdao","qzone","sqq"],"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"5","bdPos":"right","bdTop":"100"},"image":{"viewList":["weixin","tsina","douban","qzone","youdao","fbook","evernotecn","twi","linkedin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["weixin","tsina","douban","qzone","youdao","fbook","evernotecn","twi","linkedin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+<!-- 百度分享 E -->
+
+
+
+            </div>
+            
+
+            <!-- Comments -->
+            
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+
+
+
+
+
+
+    <div id="container"></div>
+    <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+    <script>
+        var gitment = new Gitment({
+            id: location.href, // 可选。默认为 location.href
+            owner: "victorquan",//查看https://api.github.com/users/用户名h
+            repo: "my-blog-comment",
+            oauth: {
+                client_id: "24d1a166f2ff57962706",
+                client_secret: "bdbd5e4b66f0bed78cb7f1993f83537e2e29fd30",
+            }
+        });
+        gitment.render('container');
+    </script>
+
+
+
+                </div>
+            
+        </div>
+    </div>
+</article>
+
+    <!-- Footer -->
+    <hr />
+
+
+
+
+<!-- Footer -->
+<footer>
+    <div class="container social-icon">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+
+                    
+                        <li>
+                            <a class="fa github-icon" href="https://github.com/victorquan" target="_blank"></a>
+                        </li>
+                    
+
+                    
+                        <li>
+                            <a class="fa facebook-icon" href="https://www.facebook.com/victor.quan.758" target="_blank"></a>
+                        </li>
+                    
+
+                    
+                        <li>
+                            <a class="fa v2ex-icon" href="https://www.v2ex.com/member/VictorChaun" target="_blank"></a>
+                        </li>
+                    
+                    
+                        <li>
+                            <a class="fa segmentfault-icon" href="https://segmentfault.com/u/ivictorchaun" target="_blank"></a>
+                        </li>
+                    
+                    
+                        <li>
+                            <a class="fa oschina-icon" href="https://my.oschina.net/u/2335354/home" target="_blank"></a>
+                        </li>
+                    
+                    
+                        <li>
+                            <a class="fa weibo-icon" href="http://weibo.com/u/2115385703" target="_blank"></a>
+                        </li>
+                    
+                    
+                        <li>
+                            <a class="fa jianshu-icon" href="http://www.jianshu.com/u/97adfad91019" target="_blank"></a>
+                        </li>
+                    
+                    
+                        <li>
+                            <a class="fa coding-icon" href="https://coding.net/u/victorquan" target="_blank"></a>
+                        </li>
+                    
+
+                </ul>
+                <p class="copyright text-muted">&copy; 2016-2019 victor quan | Powered by <a target="_blank" href="https://github.com/klugjo/hexo-theme-clean-blog">clean-blog</a><br></p>
+                <p class="copyright text-muted">友情链接：
+                    <a target="_blank" href="http://wklken.me/">wklken</a>
+                    &nbsp
+                    <a target="_blank" href="http://litten.me/">litten</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+
+    <!-- After footer scripts -->
+    
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>

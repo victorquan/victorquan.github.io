@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="qzj">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="victor quan">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="XX-net的配置笔记"/>
+    
+
+    <!--Open Graph Description-->
+    
+        <meta property="og:description" content="qzj" />
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="恠迗涯尋覓伱"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
+
+    <!--Page Cover-->
+    
+
+        <meta name="twitter:card" content="summary" />
+    
+
+    <!-- Title -->
+    
+    <title>XX-net的配置笔记 - 恠迗涯尋覓伱</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
+
+
+    <!-- 排除本地测试地址 S -->
+    <script type="text/javascript">
+        var isIgnoreHost = false;
+        var ignoreHostList = ('localhost,127.0.0.1').split(',');
+        if(window && window.location && window.location.host){
+            for(var i = 0; i < ignoreHostList.length; i++){
+                if(window.location.host.indexOf(ignoreHostList[i]) >= 0){
+                    isIgnoreHost = true;
+                    break;
+                }
+            }
+        }
+        var isTriggerAnalytics = !((JSON.parse('true')) && isIgnoreHost);
+    </script>
+    <!-- 排除本地测试地址 E -->
+
+    <!-- Google Analytics -->
+    
+
+
+
+    <!-- baidu Analytics -->
+    
+<script>
+    if(isTriggerAnalytics){
+        var _hmt = _hmt || [];
+        (function(){
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?8ca059faeae2d9a8d6316e3e4547dbab";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    }
+</script>
+
+
+
+    <!-- favicon -->
+    
+    <link rel="icon" href="/favicon.ico">
+    
+	
+</head>
+
+
+<body>
+
+    <!-- Menu -->
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">qzj</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+                    <li>
+                        <a href="/">
+                            
+                                Home
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/archives">
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/about">
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://github.com/victorquan">
+                            
+                                <i class="fa fa-github fa-stack-2x"></i>
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
+<header class="intro-header" style="background-image: url('/img/home-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>XX-net的配置笔记</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        2017-02-24
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+                <div class="col-lg-4 col-lg-offset-2 col-md-5 col-md-offset-1 post-tags">
+                    
+                        
+
+
+<a href="/tags/xx-net/">#xx-net</a> <a href="/tags/Internet/">#Internet</a>
+
+
+                    
+                </div>
+                <div class="col-lg-4 col-md-5 post-categories">
+                    
+                </div>
+            
+
+            <!-- Gallery -->
+            
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <p>昨晚<a href="https://www.v2ex.com/t/342757#reply46" target="_blank" rel="external">全球最大的同性交友网站 Github 上不去了</a>！</p>
+<p>感觉我们就像是在一个庞大的局域网中不亦乐乎地生活着，作为对科学技术有浓厚兴趣的每一位朋友来讲，学会科学合法上网非常有必要。</p>
+<p>今天笔者将记录一种科学上网的一种方法（仅介绍Mac下），方便自己日后再次使用。如果能给大家带来微小的帮助的话，我也很开心。</p>
+<h4 id="1、首先下载xx-net源码"><a href="#1、首先下载xx-net源码" class="headerlink" title="1、首先下载xx-net源码"></a>1、首先下载xx-net源码</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ cd ~</div><div class="line">$ git clone https://github.com/XX-net/XX-Net.git</div></pre></td></tr></table></figure>
+<p>源项目详见：<a href="https://github.com/XX-net/XX-Net" target="_blank" rel="external">xx-net</a></p>
+<h4 id="2、安装chrome-SwitchyOmega扩展"><a href="#2、安装chrome-SwitchyOmega扩展" class="headerlink" title="2、安装chrome SwitchyOmega扩展"></a>2、安装chrome SwitchyOmega扩展</h4><p>在以下文章中，我有介绍过安装SwitchyOmega扩展的方法：<br><a href="http://victorquan.com/2017/02/22/%E9%85%8D%E7%BD%AE%E8%87%AA%E5%B7%B1%E7%9A%84MAC/" target="_blank" rel="external">SwitchyOmega安装</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ wget https://github.com/victorquan/Mac-Terminal-and-Vim-configuration/blob/master/SwitchyOmega.crx</div></pre></td></tr></table></figure>
+<h4 id="3、启动xx-net"><a href="#3、启动xx-net" class="headerlink" title="3、启动xx-net"></a>3、启动xx-net</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ~/XX-net/start</div></pre></td></tr></table></figure>
+<p>如果你不想使用XX-net自带的公共appid的话，那么需要按照以下方法申请自己的appid</p>
+<h4 id="4、登录google账户"><a href="#4、登录google账户" class="headerlink" title="4、登录google账户"></a>4、登录google账户</h4><p>进入<a href="https://www.google.com/ncr" target="_blank" rel="external">https://www.google.com/ncr</a></p>
+<h4 id="5、创建appid"><a href="#5、创建appid" class="headerlink" title="5、创建appid"></a>5、创建appid</h4><p>点击页面右上角“project”-&gt;“创建项目”，输入“项目名称”之后自动为你生成了一个appid，把它记下来。</p>
+<p><img src="/img/xx-net/createPrj.png" alt="创建appid"></p>
+<h4 id="6、设置appid引擎"><a href="#6、设置appid引擎" class="headerlink" title="6、设置appid引擎"></a>6、设置appid引擎</h4><p>进入<a href="https://console.cloud.google.com/start" target="_blank" rel="external">https://console.cloud.google.com/start</a></p>
+<p>点击激活云端shell，如下图所示</p>
+<p><img src="/img/xx-net/shell.png" alt="激活shell"></p>
+<p>等激活云端shell之后，输入以下命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ gcloud config set project 刚才记下来的appid</div><div class="line">$ gcloud beta app create --region us-central</div></pre></td></tr></table></figure>
+<p>当显示success之后表示已设置成功</p>
+<p>反复操作5、6步骤可以重复创建多个appid，最多可以创建12个。</p>
+<h4 id="7、部署服务端配置"><a href="#7、部署服务端配置" class="headerlink" title="7、部署服务端配置"></a>7、部署服务端配置</h4><ul>
+<li><p>1）打开设置页：<a href="http://127.0.0.1:8085/" target="_blank" rel="external">http://127.0.0.1:8085/</a></p>
+</li>
+<li><p>2）如下图输入appid，点击“开始部署”</p>
+</li>
+</ul>
+<p><img src="/img/xx-net/deploySetting.png" alt="部署服务端"></p>
+<ul>
+<li>3）配置GAEProxy</li>
+</ul>
+<p><img src="/img/xx-net/config.png" alt="配置GAEProxy"></p>
+<ul>
+<li>4）确认状态</li>
+</ul>
+<p><img src="/img/xx-net/status.png" alt="确认状态"></p>
+<ul>
+<li>5）done</li>
+</ul>
+
+
+                
+            </div>
+
+            <!-- Comments -->
+            
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+<!-- JiaThis Button BEGIN -->
+<!--<script type="text/javascript" src="http://v3.jiathis.com/code/jiathis_r.js?btn=r2.gif" charset="utf-8"></script>-->
+<!-- JiaThis Button END -->
+
+<!-- 百度分享 S -->
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":["fbook","twi","evernotecn","tsina","linkedin","weixin","youdao","qzone","sqq"],"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"5","bdPos":"right","bdTop":"100"},"image":{"viewList":["weixin","tsina","douban","qzone","youdao","fbook","evernotecn","twi","linkedin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["weixin","tsina","douban","qzone","youdao","fbook","evernotecn","twi","linkedin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+<!-- 百度分享 E -->
+
+
+
+            </div>
+            
+
+            <!-- Comments -->
+            
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+
+
+
+
+
+
+    <div id="container"></div>
+    <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+    <script>
+        var gitment = new Gitment({
+            id: location.href, // 可选。默认为 location.href
+            owner: "victorquan",//查看https://api.github.com/users/用户名h
+            repo: "my-blog-comment",
+            oauth: {
+                client_id: "24d1a166f2ff57962706",
+                client_secret: "bdbd5e4b66f0bed78cb7f1993f83537e2e29fd30",
+            }
+        });
+        gitment.render('container');
+    </script>
+
+
+
+                </div>
+            
+        </div>
+    </div>
+</article>
+
+    <!-- Footer -->
+    <hr />
+
+
+
+
+<!-- Footer -->
+<footer>
+    <div class="container social-icon">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+
+                    
+                        <li>
+                            <a class="fa github-icon" href="https://github.com/victorquan" target="_blank"></a>
+                        </li>
+                    
+
+                    
+                        <li>
+                            <a class="fa facebook-icon" href="https://www.facebook.com/victor.quan.758" target="_blank"></a>
+                        </li>
+                    
+
+                    
+                        <li>
+                            <a class="fa v2ex-icon" href="https://www.v2ex.com/member/VictorChaun" target="_blank"></a>
+                        </li>
+                    
+                    
+                        <li>
+                            <a class="fa segmentfault-icon" href="https://segmentfault.com/u/ivictorchaun" target="_blank"></a>
+                        </li>
+                    
+                    
+                        <li>
+                            <a class="fa oschina-icon" href="https://my.oschina.net/u/2335354/home" target="_blank"></a>
+                        </li>
+                    
+                    
+                        <li>
+                            <a class="fa weibo-icon" href="http://weibo.com/u/2115385703" target="_blank"></a>
+                        </li>
+                    
+                    
+                        <li>
+                            <a class="fa jianshu-icon" href="http://www.jianshu.com/u/97adfad91019" target="_blank"></a>
+                        </li>
+                    
+                    
+                        <li>
+                            <a class="fa coding-icon" href="https://coding.net/u/victorquan" target="_blank"></a>
+                        </li>
+                    
+
+                </ul>
+                <p class="copyright text-muted">&copy; 2016-2019 victor quan | Powered by <a target="_blank" href="https://github.com/klugjo/hexo-theme-clean-blog">clean-blog</a><br></p>
+                <p class="copyright text-muted">友情链接：
+                    <a target="_blank" href="http://wklken.me/">wklken</a>
+                    &nbsp
+                    <a target="_blank" href="http://litten.me/">litten</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+
+    <!-- After footer scripts -->
+    
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>
